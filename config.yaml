@@ -1,0 +1,46 @@
+---
+#单节点配置文件，列举出与PBFT相关的重要字段的配置
+general:
+
+    #批量模式，即接收到消息后攒一批处理
+    mode: batch
+
+    #网络中通过验证的节点数量
+    "N": 4
+
+    #网络容忍的拜占庭节点的最大个数
+    f: 1
+
+    #吞吐量
+    K: 10
+
+    #影响接收日志大小，即 K * logmultiplier
+    #主节点只会发送落在 K * logmultiplier/2 范围内的序列号
+    logmultiplier: 4
+
+    # 在“批处理”模式下，主节点每次预准备阶段应该发送多少请求
+    batchsize: 500
+
+    # 拜占庭标志
+    byzantine: false
+
+    #在多少个检查点周期之后，主节点会自动循环。0为禁用
+    viewchangeperiod: 0
+
+    #各种计时器的时延
+    timeout:
+
+        # 每一批的请求接受期为1s，超过1s后处理当前批次，进入下一批次的接收
+        batch: 1s
+
+        #请求在接收和执行之间需要多长时间，必须大于批处理超时batch
+        request: 2s
+
+        #视图转换定时器
+        viewchange: 2s
+
+        #在重新发送相同的视图转换之前等待视图转换的时间
+        resendviewchange: 2s
+
+        # 广播的计时器
+        broadcast: 1s
